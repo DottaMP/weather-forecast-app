@@ -25,7 +25,7 @@ realizadas.
 # **Resultado do projeto desenvolvido:**
 ## **Interface**
 <p align="center">
-<a href="https://imgur.com/GquOBQO"><img src="https://i.imgur.com/GquOBQO.gif" title="source: imgur.com" /></a>
+<img src="https://i.imgur.com/3EG4P6i.gif" width="298" height="638">
 <p>  
 
 ### **Banco de dados**

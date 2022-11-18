@@ -30,5 +30,5 @@ realizadas.
 
 ### **Banco de dados**
 <p align="center">
-<img src="https://i.imgur.com/CjJlNJn.gif" width="1235" height="297">
+<img src="https://i.imgur.com/CjJlNJn.gif" width="1235" height="797">
 <p>  

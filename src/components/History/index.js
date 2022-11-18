@@ -12,7 +12,7 @@ export function History() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    oracleApi.get('/')
+    oracleApi.get('/?limit=10000&totalResults=true')
       .then((response) => {
         const sortedHistory = response.data.items.sort((a, b) => {
           return new Date(b.datahora) - new Date(a.datahora)

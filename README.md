@@ -25,10 +25,10 @@ realizadas.
 # **Resultado do projeto desenvolvido:**
 ## **Interface**
 <p align="center">
-<img src="https://i.imgur.com/3EG4P6i.gif" width="298" height="638">
+<img src="https://i.imgur.com/FfB6npz.gif" width="267" height="584">
 <p>  
 
-### **Banco de dados**
+## **Banco de dados**
 <p align="center">
-<img src="https://i.imgur.com/CjJlNJn.gif" width="1235" height="797">
+<img src="https://i.imgur.com/1xiILut.gif" width="1178" height="794">
 <p>  

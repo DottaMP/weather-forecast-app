@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    color: 'white',
+    color: 'white'
   },
   datetime: {
     fontWeight: 'bold',

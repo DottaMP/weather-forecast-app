@@ -1,3 +1,4 @@
+import { ListItemContent } from '@rneui/base/dist/ListItem/ListItem.Content';
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
@@ -13,12 +14,14 @@ export const styles = StyleSheet.create({
   hour: {
     fontSize: 55,
     color: "white",
-    fontWeight: 'bold'
+    fontWeight: "bold",
+    textAlign: "center"
   },
   date: {
     fontSize: 35,
     color: "white",
     fontWeight: '300',
+    fontWeight: "bold",
     textTransform: 'capitalize'
   },
   infoContainer: {
@@ -29,8 +32,11 @@ export const styles = StyleSheet.create({
     minHeight: 105,
   },
   locale: {
-    fontSize: 30,
+    fontSize: 35,
     color: 'white',
     fontWeight: '600',
+    textAlign: "center",
+    fontWeight: "bold",
+    marginTop: 5
   },
 });

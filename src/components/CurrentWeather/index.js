@@ -1,25 +1,35 @@
-//rafce
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { Text, View, ActivityIndicator } from 'react-native';
-import { format } from 'date-fns';
-import ptBR from 'date-fns/locale/pt-BR';
-import * as Location from 'expo-location';
+// rnfes
+import React, { 
+  // Hooks permitem "enganchar" os recursos do React, como métodos de estado e ciclo de vida.
+  useCallback, 
+  useEffect, 
+  useState, 
+  useMemo 
+} from 'react';
 
+import { 
+  ActivityIndicator, 
+  Text,
+  View 
+} from 'react-native';
+
+import { format } from 'date-fns'; //https://date-fns.org/v2.29.3/docs/format
+import ptBR from 'date-fns/locale/pt-BR'; 
+import * as Location from 'expo-location';
 import { ItemInfo } from './ItemInfo';
 import { weatherApi } from '../../lib/weatherApi';
-
 import { styles } from './styles';
 
-
 export const CurrentWeather = () => {
+  //declaração dos estado
   const [currentDate, setCurrentDate] = useState(new Date());
   const [coords, setCoords] = useState(null);
   const [weather, setWeather] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const hourFormatted = useMemo(() => {
-    return format(currentDate, 'KK:mm aaa');
-  }, [currentDate]);
+    return format(currentDate, 'HH:mm');
+  }, [currentDate]); // quando utiliza-se um estado de fora, precisa incluir como dependencia.
 
   const dateFormatted = useMemo(() => {
     return format(currentDate, 'EEEE, dd MMM', {
@@ -29,17 +39,22 @@ export const CurrentWeather = () => {
 
   const sunriseFormatted = useMemo(() => {
     return weather
-      ? format(new Date(weather.sys.sunrise * 1000), 'hh:mm aaa')
+      ? format(new Date(weather.sys.sunrise * 1000), 'HH:mm')
       : '00:00'
   }, [weather]);
 
-  const sunsetFormatted = useMemo(() => {
+  const sunsetFormatted = useMemo(() => { 
+    // useMemo função de memorização, retorna um valor memorizada.
+    // só é executado quando uma de suas dependências é atualizada. Isso pode melhorar o desempenho.
     return weather
-      ? format(new Date(weather.sys.sunset * 1000), 'hh:mm aaa')
+      ? format(new Date(weather.sys.sunset * 1000), 'HH:mm')
       : '00:00';
   }, [weather]);
 
-  const handleGetCurrentWeather = useCallback(() => {
+  const handleGetCurrentWeather = useCallback(() => { 
+    // useCallback função de memorização, retorna uma função memorizada.
+    // o useCallback mantem a função do jeito que alocou na memória até que ela mude.
+    // só é executado quando uma de suas dependências é atualizada.
     if (coords) {
       const { latitude, longitude } = coords;
       setIsLoading(true);
@@ -54,8 +69,12 @@ export const CurrentWeather = () => {
     }
   }, [coords]);
 
-  useEffect(() => {
+  //função de efeito colateral, faz o efeito quando algo acontecer.
+  //defini através do array
+  //o primeiro parametro é um funação, o segundo é um array de dependencias, sendo assim, só vai ser executado quando o componente carregar.
+  useEffect(() => { 
     const handleGetCoords = async () => {
+      //desestruturação
       const { status } = await Location.requestForegroundPermissionsAsync();
 
       if (status !== 'granted') {
@@ -64,28 +83,32 @@ export const CurrentWeather = () => {
       }
 
       const location = await Location.getCurrentPositionAsync({});
-      setCoords(location.coords);
+      setCoords(location.coords); //pega a localização pelo provedor da internet
     }
 
-    handleGetCoords();
+    handleGetCoords(); //não pode usar uma função async, por isso chama a função aqui.
   }, []);
 
   useEffect(() => {
+    // a cada segundo a data/hora é atualizada
     const updateDateInternal = setInterval(() => {
       setCurrentDate(new Date());
-    }, 1000); // 30 seconds
+    }, 1000); // 1 seconds
 
+    // a cada um minuto chama a função que atualiza o clima
     const updateWeatherInterval = setInterval(() => {
       handleGetCurrentWeather();
     }, 1000 * 60); // 1 minute
 
     return () => {
+      // para limpar a memória
       clearInterval(updateDateInternal);
       clearInterval(updateWeatherInterval);
     }
-  }, [handleGetCurrentWeather])
+  }, [handleGetCurrentWeather]) // array de dependência, quando usa algo de fora precisa colocar como dependencia.
 
   useEffect(() => {
+    // chama a função do tempo sempre que é atualizado.
     handleGetCurrentWeather();
   }, [handleGetCurrentWeather]);
 
@@ -97,7 +120,7 @@ export const CurrentWeather = () => {
 
         <View style={styles.infoContainer}>
           {isLoading ? (
-            <ActivityIndicator style={{ flex: 1 }} />
+            <ActivityIndicator size="large" color="white" style={{ flex: 1 }} />
           ) : (
             <>
               <ItemInfo
@@ -107,7 +130,7 @@ export const CurrentWeather = () => {
               />
 
               <ItemInfo
-                title="Humidade do ar"
+                title="Humidade do Ar"
                 value={weather?.main?.humidity ?? 0}
                 unit="%"
               />
@@ -119,12 +142,11 @@ export const CurrentWeather = () => {
               />
 
               <ItemInfo
-                title="Por do Sol"
+                title="Pôr do Sol"
                 value={sunsetFormatted}
                 unit=""
               />
             </>
-
           )}
         </View>
 

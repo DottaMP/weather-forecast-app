@@ -2,7 +2,7 @@
 ## 5º Semestre do curso de *Análise e Desenvolvimento de Sistemas*
 ## **Professor:** Rodrigo Bossini
 #
-# **Projeto P2 - APP Previsão do Tempo**
+# **Projeto P2 - APP Previsão do Tempo - *Weather Forecast App***
 # **Grupo**
 | Nome | RA |
 | ------------- | ------------- |
@@ -20,7 +20,7 @@ obtidos é exibida. Além disso, a aplicação registra que uma consulta foi rea
 na base de histórico.
 - A segunda tela permite ao usuário consultar o histórico de consultas já
 realizadas.
-![Figura 1:](./assets/figura1.png "Figura 1.1")
+![Figura 1:](./assets/figura1.png "Figura 1")
 #
 # **Resultado do projeto desenvolvido:**
 ## **Interface**

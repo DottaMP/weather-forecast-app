@@ -1,13 +1,24 @@
-import { useState, useEffect } from 'react';
-import { View, FlatList, ActivityIndicator, Text } from 'react-native';
+// rnfes
+import { 
+  // Hooks permitem "enganchar" os recursos do React, como métodos de estado e ciclo de vida.
+  useState, 
+  useEffect 
+} from 'react';
+
+import { 
+  ActivityIndicator,
+  FlatList,
+  Text, 
+  View 
+} from 'react-native';
+
 import { ListItem } from '@rneui/themed';
-import { format } from "date-fns";
-
+import { format } from "date-fns"; //https://date-fns.org/v2.29.3/docs/format
 import { oracleApi } from "../../lib/oracleApi";
-
 import { styles } from './styles';
 
 export function History() {
+  //declaração dos estado
   const [history, setHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -32,7 +43,7 @@ export function History() {
   return (
     <View style={styles.container}>
       { isLoading ? (
-        <ActivityIndicator />
+        <ActivityIndicator size="large" color="white"/>
       ): (
         <FlatList
           style={{ width: '100%' }}

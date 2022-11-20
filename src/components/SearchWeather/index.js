@@ -1,29 +1,40 @@
-import { useState, useEffect } from 'react';
+// rnfes
 import { 
+  // Hooks permitem "enganchar" os recursos do React, como métodos de estado e ciclo de vida.
+  useEffect,
+  useState 
+} from 'react';
+
+import { 
+  Alert, 
+  FlatList, 
+  Keyboard, 
   KeyboardAvoidingView, 
-  View, 
+  Platform, 
   Text, 
   TextInput, 
-  FlatList, 
-  Alert,
-  Platform,
-  Keyboard, 
+  View
 } from 'react-native';
-import { Button, ListItem, Avatar } from '@rneui/themed';
-import { format } from 'date-fns';
-import ptBR from 'date-fns/locale/pt-BR';
 
+import { 
+  Avatar, 
+  Button, 
+  ListItem 
+} from '@rneui/themed';
+ 
+import { format } from 'date-fns'; //https://date-fns.org/v2.29.3/docs/format
+import ptBR from 'date-fns/locale/pt-BR';
 import { weatherApi } from '../../lib/weatherApi';
 import { oracleApi } from '../../lib/oracleApi';
-
 import { styles } from './styles'
 
 export const SearchWeather = () => {
+  //declaração dos estado
   const [city, setCity] = useState('');
   const [dailyWeather, setDailyWeather] = useState([]);
 
   const TextToUpperCase = (city) => {
-
+    // tranforma a entrada de texto em UpperCase
     city = city.toUpperCase()
     setCity(city)
   }
@@ -46,7 +57,7 @@ export const SearchWeather = () => {
       if (locales.data.length) {
         const { lat, lon } = locales.data[0];
 
-        const response = await weatherApi.get(`data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&units=metric&appid`);
+        const response = await weatherApi.get(`data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&units=metric`);
 
         setDailyWeather(response.data.daily.map((dayData, index) => ({
           ...dayData,
@@ -116,7 +127,7 @@ export const SearchWeather = () => {
               </Text>
 
               <Text style={styles.temperature}>
-                Máx {Math.round(weather.temp.night)} &#176;C
+                Máx {Math.round(weather.temp.max)} &#176;C
               </Text>
             </ListItem.Content>
           </ListItem>

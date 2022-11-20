@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
   },
   text: {
     color: "white",
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "100"
   },
   locale: {

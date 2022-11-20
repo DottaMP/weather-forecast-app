@@ -1,8 +1,9 @@
+//axios cria e consome a api
 import axios from 'axios';
 
 export const weatherApi = axios.create({
   baseURL: 'https://api.openweathermap.org',
   params: { 
-    appId: '49cc8c821cd2aff9af04c9f98c36eb74'
+    appId: 'ef0b0973b783e0614ac87612ec04344b'
   }
 });

@@ -18,6 +18,7 @@ import { format } from 'date-fns'; //https://date-fns.org/v2.29.3/docs/format
 import ptBR from 'date-fns/locale/pt-BR'; 
 import * as Location from 'expo-location';
 import { ItemInfo } from './ItemInfo';
+// importa a lib (biblioteca) de tempo
 import { weatherApi } from '../../lib/weatherApi';
 //importa arquivo de estilização
 import { styles } from './styles';
@@ -45,15 +46,15 @@ export const CurrentWeather = () => {
     });
   }, [currentDate]);
 
-  //informações do clima
+  //informações do clima - formata nascer e por do sol
   // o weather vem de fora, e por isso é usado como dependencia
-  const sunriseFormatted = useMemo(() => {
+  const sunriseFormatted = useMemo(() => { //nascer
     return weather
-      ? format(new Date(weather.sys.sunrise * 1000), 'HH:mm')
+      ? format(new Date(weather.sys.sunrise * 1000), 'HH:mm') //faz a formatação para o horario do Brasil
       : '00:00'
   }, [weather]);
 
-  const sunsetFormatted = useMemo(() => { 
+  const sunsetFormatted = useMemo(() => {  //por
     // useMemo função de memorização, retorna um valor memorizada.
     // só é executado quando uma de suas dependências é atualizada. Isso pode melhorar o desempenho.
     return weather
@@ -67,9 +68,9 @@ export const CurrentWeather = () => {
     // só é executado quando uma de suas dependências é atualizada.
     if (coords) {
       const { latitude, longitude } = coords;
-      setIsLoading(true);
+      setIsLoading(true); //se o loading ta carregando vai aparecer a formatação descrita no final desse arquivo
 
-      weatherApi.get(`/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric`)
+      weatherApi.get(`/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric`) //api ta definida dentro da pasta lib, temos a da oracle e a weather
         .then(response => {
           setWeather(response.data);
         })
@@ -88,7 +89,7 @@ export const CurrentWeather = () => {
       /* foi necessario criar a função para depois executar ela no handleGetCoords, porque o useEffect não aceita funcões assincronas, então um precisa acontecer antes do outro, por isso é chamado no final - regra do proprio react */
       //desestruturação
       //await para esperar a resposta, poderia ser qualquer outro com a mesma função, serve para esperar a resposta da localização que vem a seguir
-      const { status } = await Location.requestForegroundPermissionsAsync(); 
+      const { status } = await Location.requestForegroundPermissionsAsync(); //esse location está pegando as coordenadas do provedor da sua internet.
       //a desestrutução acima: const { status } está fazendo o papel de trazer de dentro do result que a consulta retorna apenas o valor de status, mesmo que result.status
 
       //quando o usuario permite que a sua localização seja acessada o status vai retornar granted
@@ -145,7 +146,7 @@ export const CurrentWeather = () => {
         <Text style={styles.date}>{dateFormatted}</Text>
 
         <View style={styles.infoContainer}>
-          {isLoading ? (
+          {isLoading ? ( //usando o icone de loading // carregando
             <ActivityIndicator size="large" color="white" style={{ flex: 1 }} />
           ) : (
             <>

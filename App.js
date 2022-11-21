@@ -14,6 +14,7 @@ import {
   StyleSheet
 } from 'react-native';
 
+//imports do react
 import { 
   Tab, 
   TabView 

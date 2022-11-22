@@ -136,7 +136,7 @@ export const CurrentWeather = () => {
   useEffect(() => {
     // chama a função do tempo sempre que é atualizado.
     handleGetCurrentWeather();
-  }, [handleGetCurrentWeather]);
+  }, [handleGetCurrentWeather]); //array dependencia.
 
   //o retorno é a montagem da pagina, onde eu pego os valores e vou estilizando
   return (

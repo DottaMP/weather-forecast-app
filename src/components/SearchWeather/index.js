@@ -24,26 +24,30 @@ import {
  
 import { format } from 'date-fns'; //https://date-fns.org/v2.29.3/docs/format
 import ptBR from 'date-fns/locale/pt-BR';
+//importa a api weather (sugestão)
 import { weatherApi } from '../../lib/weatherApi';
+//importa a api da oracle
 import { oracleApi } from '../../lib/oracleApi';
+//importa a estilização
 import { styles } from './styles'
 
 
-//
+//Cria busca de previsão de tempo
 export const SearchWeather = () => {
   //declaração dos estado
   const [city, setCity] = useState(''); //atualiza a cidade - base para buscar a previsão do tempo
   const [dailyWeather, setDailyWeather] = useState([]); //atualiza clima
 
+  //para transformar o valor recebido em city em uma palavra com letras maiusculas
   const TextToUpperCase = (city) => {
     // tranforma a entrada de texto em UpperCase
-    city = city.toUpperCase()
-    setCity(city)
+    city = city.toUpperCase() //city recebe city com o metodo upper case, para transformar o valor em maiuscula
+    setCity(city) //atribui o texto editado (em maisculo) na variavel city.
   }
 
   //ADD COMENT
   useEffect(() => {
-    if (dailyWeather.length) {
+    if (dailyWeather.length) { //
       oracleApi.post('/', { //consumindo api da oracle, metodo post, adicionando uma nova data.
         datahora: new Date(),
         cidade: city, //recebe a cidade
@@ -51,8 +55,8 @@ export const SearchWeather = () => {
     }  
   }, [dailyWeather]); //adiciona dependencia, quando usamos algo de fora precisamos colocar como dependencia.
 
-  const handleGetWeather = async () => { //ADD COMENT
-    Keyboard.dismiss();// ADD COMENT
+  const handleGetWeather = async () => { //ADD COMENT!!!!!!!
+    Keyboard.dismiss();// ADD COMENT!!!!!!!!!!!!!!!!!!!
 
     //inicio do try catch que faz: tenta trazer as informações de tempo, caso não consiga exibe um alerta de erro (linha 73)
     try {
@@ -62,6 +66,7 @@ export const SearchWeather = () => {
       if (locales.data.length) {
         const { lat, lon } = locales.data[0]; //ADD COMENT
 
+        //ADD COMENT!!!!!!!!!!!!!!
         const response = await weatherApi.get(`data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&units=metric`);
 
         setDailyWeather(response.data.daily.map((dayData, index) => ({ //
@@ -88,7 +93,7 @@ export const SearchWeather = () => {
   //retorno é a montagem da pagina que quero exibir, onde juntamos os dados e estilizamos a tela que será exibida pela aplicação
   return (
     <KeyboardAvoidingView 
-      behavior={Platform.OS === 'android' ? 'height' : 'padding' }
+      behavior={Platform.OS === 'android' ? 'height' : 'padding' } //faz a configuração para tela android
       style={styles.container}
     >
       <View style={styles.inputContainer}>
@@ -111,7 +116,7 @@ export const SearchWeather = () => {
         </View>
       </View>
 
-      <FlatList
+      <FlatList //ADD COMENT
         style={{ marginTop: 32, width: '100%' }}
         data={dailyWeather}
         showsVerticalScrollIndicator={false}

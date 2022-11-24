@@ -147,7 +147,7 @@ export const CurrentWeather = () => {
 
         <View style={styles.infoContainer}>
           {isLoading ? ( //usando o icone de loading // carregando
-            <ActivityIndicator size="large" color="white" style={{ flex: 1 }} />
+            <ActivityIndicator size="large" color="white" style={{ flex: 1 }} /> 
           ) : (
             <>
               {/* Cada item traz uma informação que preciso mostrar ao usuario */}

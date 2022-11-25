@@ -28,21 +28,23 @@ export function History() {
 
   //Uso essa função de efeito quando abrir a tela, então a dependencia é vazia
   useEffect(() => {
-    oracleApi.get('/?limit=10000&totalResults=true') //metodo get / porque e url padrão
+    oracleApi.get('/?limit=10000&totalResults=true') //metodo get / porque e url padrão - 
+    // - /?limit=10000&totalResults=true - é um completamento da api da oracle, sem esse complemento ele mostra só 20 resultados no histórico, essa informação a gente pegou na documetação da oracle, assim ele coloca um limite de 10.000 resultados, traduzindo tudo que pesquisamos.
       .then((response) => { //pego a resposta que volta do get acima
         //faz a ordenação dos resultados
         const sortedHistory = response.data.items.sort((a, b) => {
           return new Date(b.datahora) - new Date(a.datahora) //renderiza pela data de forma descendente, do maior pro menor
         });
         
+        //setendo dentro de history o resultado
         setHistory(sortedHistory.map(item => ({ //esse map para formatar data
           id: item.cod_weathersearch,
           city: item.cidade,
-          datetime: format(new Date(item.datahora), 'dd/MM/yyyy HH:mm'),
+          datetime: format(new Date(item.datahora), 'dd/MM/yyyy HH:mm'), //formato tradicional
         })));
       })
-      .finally(() => {
-        setIsLoading(false);
+      .finally(() => { //independente se der certo ou errado ele traz o loading
+        setIsLoading(false); //
       })
   }, []); //dependencia vazia
 
@@ -56,12 +58,12 @@ export function History() {
           style={{ width: '100%' }}
           data={history}
           showsVerticalScrollIndicator={false} //esconde o scroll lateral da tela, que não é usual em aplicações mobile
-          keyExtractor={historyItem => historyItem.id}
-          renderItem={({ item }) => (
+          keyExtractor={historyItem => historyItem.id} // é o id la do banco
+          renderItem={({ item }) => ( //chama o mesmo listItem mas sem o avatar, sem o icon
             <ListItem containerStyle={styles.listItemContainer}>
               <ListItem.Content style={styles.content}>
                 <Text style={styles.text}>
-                  <Text style={styles.datetime}>{item.datetime}</Text> - {item.city}     
+                  <Text style={styles.datetime}>{item.datetime}</Text> - {item.city} {/* existe para que esse padaço fique com style a mais, em negrito*/} 
                 </Text>
               </ListItem.Content>
             </ListItem>

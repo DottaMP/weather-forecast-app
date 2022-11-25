@@ -19,7 +19,8 @@ import { oracleApi } from "../../lib/oracleApi";
 //importa a estilização
 import { styles } from './styles';
 
-//A ideia é trazer tudo que foi pesquisado, então tudo que foi pesquisado la no search é armazenado no banco de dados da oracle
+//A ideia é trazer tudo que foi pesquisado, então tudo que foi pesquisado la no search é armazenado no banco de dados da oracle.
+//Com tudo: quero dizer hora e data em que aconteceu a pesquisa de uma cidade.
 //Função que cria o histórico
 export function History() {
   //declaração dos estado
@@ -54,7 +55,7 @@ export function History() {
       { isLoading ? ( //usando o icone de loading // carregando
         <ActivityIndicator size="large" color="white"/>
       ): (
-        <FlatList {/* cria listas simples e basicas */}
+        <FlatList /* cria listas simples e basicas */
           style={{ width: '100%' }}
           data={history}
           showsVerticalScrollIndicator={false} //esconde o scroll lateral da tela, que não é usual em aplicações mobile

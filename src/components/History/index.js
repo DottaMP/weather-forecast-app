@@ -54,16 +54,16 @@ export function History() {
       { isLoading ? ( //usando o icone de loading // carregando
         <ActivityIndicator size="large" color="white"/>
       ): (
-        <FlatList
+        <FlatList {/* cria listas simples e basicas */}
           style={{ width: '100%' }}
           data={history}
           showsVerticalScrollIndicator={false} //esconde o scroll lateral da tela, que não é usual em aplicações mobile
           keyExtractor={historyItem => historyItem.id} // é o id la do banco
-          renderItem={({ item }) => ( //chama o mesmo listItem mas sem o avatar, sem o icon
-            <ListItem containerStyle={styles.listItemContainer}>
+          renderItem={({ item }) => ( //chama o mesmo listItem mas sem o avatar, sem o icon (renderItem = pega o item de data e processa na lista)
+            <ListItem containerStyle={styles.listItemContainer}> {/* serve para atribuir as caracteristicas de cada item - usada a cada item */}
               <ListItem.Content style={styles.content}>
                 <Text style={styles.text}>
-                  <Text style={styles.datetime}>{item.datetime}</Text> - {item.city} {/* existe para que esse padaço fique com style a mais, em negrito*/} 
+                  <Text style={styles.datetime}>{item.datetime}</Text> - {item.city} {/* existe para que esse padaço fique com style a mais, em negrito a data e hora*/} 
                 </Text>
               </ListItem.Content>
             </ListItem>

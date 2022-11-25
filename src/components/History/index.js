@@ -19,21 +19,23 @@ import { oracleApi } from "../../lib/oracleApi";
 //importa a estilização
 import { styles } from './styles';
 
+//A ideia é trazer tudo que foi pesquisado, então tudo que foi pesquisado la no search é armazenado no banco de dados da oracle
 //Função que cria o histórico
 export function History() {
   //declaração dos estado
-  const [history, setHistory] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [history, setHistory] = useState([]); //é o histórico, que inicialmente começa vazio
+  const [isLoading, setIsLoading] = useState(true); //loading é o carregar mesmo, nessa tela está super rapido, então não vai dar pra ver muito
 
-  //ADD COMENT
+  //Uso essa função de efeito quando abrir a tela, então a dependencia é vazia
   useEffect(() => {
-    oracleApi.get('/?limit=10000&totalResults=true') //metodo get da api oracle, 
-      .then((response) => {
+    oracleApi.get('/?limit=10000&totalResults=true') //metodo get / porque e url padrão
+      .then((response) => { //pego a resposta que volta do get acima
+        //faz a ordenação dos resultados
         const sortedHistory = response.data.items.sort((a, b) => {
-          return new Date(b.datahora) - new Date(a.datahora)
+          return new Date(b.datahora) - new Date(a.datahora) //renderiza pela data de forma descendente, do maior pro menor
         });
         
-        setHistory(sortedHistory.map(item => ({
+        setHistory(sortedHistory.map(item => ({ //esse map para formatar data
           id: item.cod_weathersearch,
           city: item.cidade,
           datetime: format(new Date(item.datahora), 'dd/MM/yyyy HH:mm'),
@@ -42,7 +44,7 @@ export function History() {
       .finally(() => {
         setIsLoading(false);
       })
-  }, []);
+  }, []); //dependencia vazia
 
   //retorno é a montagem da pagina que será exibida para o usuario, com a estilização e os dados que devem ser exibidos consolidados.
   return (

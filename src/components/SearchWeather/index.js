@@ -50,7 +50,7 @@ export const SearchWeather = () => {
     if (dailyWeather.length) { //
       oracleApi.post('/', { //consumindo api da oracle, metodo post, adicionando uma nova data.
         datahora: new Date(),
-        cidade: city, //recebe a cidade
+        cidade: city, //esse city vem sem dependencia porque se não a cada letra ele ficaria buscando
       });
     }  
   }, [dailyWeather]); //adiciona dependencia, quando usamos algo de fora precisamos colocar como dependencia.
